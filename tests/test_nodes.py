@@ -87,6 +87,14 @@ class OptionalInputTests(unittest.TestCase):
         self.native.return_value.load_image.assert_not_called()
         self.decoder.assert_not_called()
 
+    def test_optional_audio_has_native_preview_before_upload_widget(self):
+        fields = self.cls.INPUT_TYPES()["optional"]
+        self.assertEqual(fields["audioUI"], ("AUDIO_UI", {}))
+        self.assertEqual(fields["upload"], ("AUDIOUPLOAD", {}))
+        names = list(fields)
+        self.assertLess(names.index("audio"), names.index("audioUI"))
+        self.assertLess(names.index("audioUI"), names.index("upload"))
+
     def test_valid_input_uses_native_decoder(self):
         self.assertIs(self.cls.VALIDATE_INPUTS(**{"audio": self.file.name}), True)
         result = self.load(**{"audio": self.file.name})

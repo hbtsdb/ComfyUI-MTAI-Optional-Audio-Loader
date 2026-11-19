@@ -21,6 +21,9 @@ class MTAIOptionalLoadAudio:
         return {"optional": {
             "audio": (["None", *sorted(files)], {"audio_upload": True, "default": "None"}),
             "enabled": ("BOOLEAN", {"default": True}),
+            # Native AUDIOUPLOAD needs the audio preview widget created first.
+            "audioUI": ("AUDIO_UI", {}),
+            "upload": ("AUDIOUPLOAD", {}),
         }}
 
     RETURN_TYPES = ("AUDIO", "BOOLEAN")
